@@ -10,6 +10,7 @@ extern char **environ;
 
 char *_getenv(char *variable);
 int _strcmp(char *s1, char *s2);
+int _strlen(char *s);
 pid_t _fork(void);
 
 
