@@ -16,7 +16,7 @@ void prompt(void)
  * main - Entry point for shell
  * Return: 0 on success, -1 on failure
 */
-int main(void)
+int main(__attribute__((unused)) int ac, char **av)
 {
 	pid_t id;
 	ssize_t read;
@@ -32,7 +32,7 @@ int main(void)
 		{
 			if (execve(argv[0], argv, NULL) == -1)
 			{
-				perror("No such file or directory");
+				perror(av[0]);
 				_exit(EXIT_FAILURE);
 			}
 		}
