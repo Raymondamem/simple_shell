@@ -23,7 +23,6 @@ int main(void)
 	size_t len = 0;
 	char *argv[2] = { NULL, NULL };
 
-
 	prompt();
 	while ((read = getline(&argv[0], &len, stdin)) != -1)
 	{
@@ -31,7 +30,6 @@ int main(void)
 		id = _fork();
 		if (id == 0)
 		{
-
 			if (execve(argv[0], argv, NULL) == -1)
 			{
 				perror("Error");
@@ -39,6 +37,5 @@ int main(void)
 			}
 		}
 	}
-
 	return (0);
 }
