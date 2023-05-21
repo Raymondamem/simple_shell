@@ -32,10 +32,15 @@ int main(void)
 		{
 			if (execve(argv[0], argv, NULL) == -1)
 			{
-				perror("Error");
+				perror("No such file or directory");
 				_exit(EXIT_FAILURE);
 			}
 		}
+		else
+		{
+			wait(NULL);
+		}
+		prompt();
 	}
 	return (0);
 }
