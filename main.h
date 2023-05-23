@@ -14,6 +14,6 @@ int _strlen(char *s);
 char *_strcat(char *dest, char *src);
 char *_strcpy(char *dest, char *src);
 pid_t _fork(void);
-
+int free_multiple(int count, ...);
 
 #endif /* __MAIN_H__ */
