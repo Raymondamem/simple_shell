@@ -12,8 +12,10 @@ int _strlen(char *s)
 	i = 0;
 	while (*(s + i) != '\0')
 	{
-		if (*(s + i) == '\32')
-			continue;
+		i++;
+	}
+	if (*(s + i) == '\0')
+	{
 		i++;
 	}
 	return (i);
