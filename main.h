@@ -16,6 +16,6 @@ char *_strcpy(char *dest, const char *src);
 pid_t _fork(void);
 char *get_exec_path(char *program);
 char **get_argv(char *line);
-
+int free_multiple(int count, ...);
 
 #endif /* __MAIN_H__ */
