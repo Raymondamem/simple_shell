@@ -17,5 +17,6 @@ pid_t _fork(void)
 		exit(EXIT_FAILURE);
 	}
 
-	return pid;
+	return (pid);
 }
+

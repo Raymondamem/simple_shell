@@ -3,16 +3,19 @@
 
 /**
  * _strdup - duplicates a string
- * @d: pointer to store string in memory
- * Return : returns address to string
+ * @s: pointer to the string
+ *
+ * Return: return address to string
  */
 char *_strdup(const char *s)
 {
-    char *d = malloc(_strlen(s) + 1);
+	char *d = malloc(_strlen(s) + 1);
 
-    if (d != NULL)
-    {
-	    _strcpy(d,s);
-    }
-    return d;
+	if (d != NULL)
+	{
+		_strcpy(d, s);
+	}
+
+	return (d);
 }
+
