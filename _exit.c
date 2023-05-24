@@ -1,7 +1,15 @@
 #include "main.h"
 #include <stdlib.h>
 
-void __exit(__attribute__((unused)) char *command, __attribute__((unused))char *shell_name)
+/**
+ * __exit - exit from shell
+ * @command: command to execute
+ * @shell_name: name of the shell
+ * Return: void
+*/
+void __exit(char *command, char *shell_name)
 {
-    exit(EXIT_SUCCESS);
+	UNUSED(command);
+	UNUSED(shell_name);
+	exit(EXIT_SUCCESS);
 }

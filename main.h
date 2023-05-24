@@ -8,6 +8,8 @@ extern char **environ;
 #define PROMPT_MSG "#cisfun$ "
 #define PROMPT_LEN 9
 
+#define UNUSED(x) (void)(x)
+
 /**
  * struct cmd - command structure
  * @command: format specifier
