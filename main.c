@@ -37,7 +37,19 @@ int main(__attribute__((unused)) int ac, char **av)
 		if (full_path == NULL)
 		{
 			perror("File not found");
-			_exit(EXIT_FAILURE);
+			if (argv != NULL)
+			{
+				for (i = 0; argv[i] != NULL; i++)
+				{
+					free(argv[i]);
+				}
+				free(argv);
+			}
+			if (full_path != NULL)
+				free(full_path);
+			prompt();
+			continue;
+			/* _exit(EXIT_FAILURE); */
 		}
 		id = _fork();
 		if (id == 0)
@@ -57,6 +69,7 @@ int main(__attribute__((unused)) int ac, char **av)
 			free(argv[i]);
 		}
 		free(argv);
+		free(full_path);
 		prompt();
 	}
 	if (line != NULL)

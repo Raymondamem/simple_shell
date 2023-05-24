@@ -10,22 +10,15 @@
 char *_getenv(char *variable)
 {
 	int i = 0;
-	char *token;
+	size_t len = _strlen(variable);
 
-	token = strtok(environ[i], "=");
 	while (environ[i] != NULL)
 	{
-		if (token != NULL)
+		if (strncmp(environ[i], variable, len) == 0 && environ[i][len] == '=')
 		{
-			if (_strcmp(token, variable) == 0)
-			{
-				token = strtok(NULL, "=");
-				return (token);
-			}
+			return &environ[i][len + 1];
 		}
 		i++;
-		token = strtok(environ[i], "=");
 	}
-
 	return (NULL);
 }

@@ -12,13 +12,15 @@
 char *get_exec_path(char *program)
 {
 	char *path = _getenv("PATH");
+	char *copy_path = malloc(_strlen(path) + 1);
 	char *token;
-	char *str;
+	char *str = NULL;
 	int str_len = 0;
 	int path_len = 0;
 	int file_len = _strlen(program);
 
-	token = strtok(path, ":");
+	_strcpy(copy_path, path);
+	token = strtok(copy_path, ":");
 	if (token != NULL)
 	{
 		path_len = _strlen(token);
@@ -29,15 +31,17 @@ char *get_exec_path(char *program)
 	}
 	while (token != NULL)
 	{
-		if (str_len < (path_len + file_len))
+		if ((path_len + file_len) >= str_len)
 		{
 			str_len = path_len + file_len;
 			str = realloc(str, (str_len * sizeof(char)) + 1);
 		}
 		_strcpy(str, token);
-		if (str[(_strlen(str) - 1)] != '/')
+		str_len = _strlen(str);
+		if (str[(str_len - 1)] != '/')
 		{
-			str = realloc(str, (str_len * sizeof(char)) + 2);
+			if ((path_len + file_len + 1) >= str_len)
+				str = realloc(str, (str_len * sizeof(char)) + 2);
 			_strcat(str, "/");
 		}
 		_strcat(str, program);
@@ -47,6 +51,9 @@ char *get_exec_path(char *program)
 		if (token != NULL)
 			path_len = _strlen(token);
 	}
-	free(str);
+	if (str != NULL)
+		free(str);
+	if (copy_path != NULL)
+		free(copy_path);
 	return (NULL);
 }
