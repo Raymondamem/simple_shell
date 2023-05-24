@@ -17,8 +17,8 @@ extern char **environ;
 */
 typedef struct cmd
 {
-    char *command;
-    void (*f)(char *c, char *s);
+	char *command;
+	void (*f)(char *c, char *s);
 } command_t;
 
 void prompt(void);
