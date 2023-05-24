@@ -7,3 +7,4 @@ void prompt(void)
 {
 	write(STDOUT_FILENO, PROMPT_MSG, PROMPT_LEN);
 }
+
