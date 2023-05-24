@@ -35,14 +35,14 @@ char **get_argv(char *line)
 	int argc = 0, arr_size = 10;
 	char *token, *str_copy;
 
-	str_copy = strdup(line);
+	str_copy = _strdup(line);
 	argv = _malloc(arr_size * sizeof(char *));
 	token = strtok(str_copy, " ");
 	while (token != NULL)
 	{
 		if (argc >= arr_size)
 			argv = (char **)realloc_array((void **)argv, &arr_size, &argc, str_copy);
-		argv[argc] = strdup(token);
+		argv[argc] = _strdup(token);
 		if (argv[argc] == NULL)
 		{
 			free_array((void **)argv, argc);
