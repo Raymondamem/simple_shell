@@ -11,7 +11,7 @@ extern char **environ;
 void prompt(void);
 char *_getenv(char *variable);
 int _strcmp(char *s1, char *s2);
-int _strlen(char *s);
+int _strlen(const char *s);
 char *_strcat(char *dest, char *src);
 char *_strcpy(char *dest, const char *src);
 pid_t _fork(void);
@@ -22,5 +22,6 @@ void free_array(void **array, int array_size);
 void *_realloc(void *ptr, size_t size);
 void *_malloc(size_t size);
 void run_cmd(char *command, char *shell_name);
+char *_strdup(const char *s);
 
 #endif /* __MAIN_H__ */

@@ -12,7 +12,7 @@
 char *get_exec_path(char *program)
 {
 	char *path = _getenv("PATH");
-	char *copy_path = strdup(path);
+	char *copy_path = _strdup(path);
 	char *token, *str = NULL;
 	int str_len = 0;
 	int path_len = 0, file_len = _strlen(program);

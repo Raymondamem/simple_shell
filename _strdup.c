@@ -6,12 +6,13 @@
  * @d: pointer to store string in memory
  * Return : returns address to string
  */
-char *_strdup(const char *s) {
-    char *d = malloc(_strlen(s) + 1);   // Allocate memory
+char *_strdup(const char *s)
+{
+    char *d = malloc(_strlen(s) + 1);
 
     if (d != NULL)
     {
-	    _strcpy(d,s);         // Copy string if okay
+	    _strcpy(d,s);
     }
-    return d;                           // Return new memory
+    return d;
 }
