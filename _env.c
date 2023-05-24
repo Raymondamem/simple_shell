@@ -10,9 +10,10 @@
 */
 void _env(char *command, char *shell_name)
 {
+	int i = 0;
+
 	UNUSED(command);
 	UNUSED(shell_name);
-	int i = 0;
 
 	while (environ[i] != NULL)
 	{
