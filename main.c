@@ -1,80 +1,41 @@
 #include "main.h"
 #include <stdio.h>
-#include <stdlib.h>
-#include <sys/types.h>
-#include <sys/wait.h>
-
-/**
- * prompt - Prints prompt message
-*/
-void prompt(void)
-{
-	write(STDOUT_FILENO, PROMPT_MSG, PROMPT_LEN);
-}
 
 /**
  * main - Entry point for shell
+ * @ac: argument count
+ * @av: argument vector
  * Return: 0 on success, -1 on failure
 */
 int main(__attribute__((unused)) int ac, char **av)
 {
-	pid_t id;
 	ssize_t read;
 	size_t len = 0;
 	char *line = NULL;
-	char **argv = NULL;
-	char *full_path = NULL;
-	int i;
 
-	prompt();
-	while ((read = getline(&line, &len, stdin)) != -1)
+	if (isatty(STDIN_FILENO))
 	{
-		if (line[read - 1] == '\n')
-			line[read - 1] = '\0';
-		
-		argv = get_argv(line);
-		full_path = get_exec_path(argv[0]);
-		if (full_path == NULL)
-		{
-			perror("File not found");
-			if (argv != NULL)
-			{
-				for (i = 0; argv[i] != NULL; i++)
-				{
-					free(argv[i]);
-				}
-				free(argv);
-			}
-			if (full_path != NULL)
-				free(full_path);
-			prompt();
-			continue;
-			/* _exit(EXIT_FAILURE); */
-		}
-		id = _fork();
-		if (id == 0)
-		{
-			if (execve(full_path, argv, NULL) == -1)
-			{
-				perror(av[0]);
-				_exit(EXIT_FAILURE);
-			}
-		}
-		else
-		{
-			wait(NULL);
-		}
-		for (i = 0; argv[i] != NULL; i++)
-		{
-			free(argv[i]);
-		}
-		free(argv);
-		free(full_path);
 		prompt();
+		while ((read = getline(&line, &len, stdin)) != -1)
+		{
+			if (line[read - 1] == '\n')
+				line[read - 1] = '\0';
+
+			run_cmd(line, av[0]);
+			prompt();
+		}
 	}
-	if (line != NULL)
-		free(line);
-	if (full_path != NULL)
-		free(full_path);
+	else
+	{
+		read = getline(&line, &len, stdin);
+		if (read != -1)
+		{
+			if (line[read - 1] == '\n')
+				line[read - 1] = '\0';
+
+			run_cmd(line, av[0]);
+		}
+	}
+	free_multiple(1, line);
 	return (0);
 }

@@ -12,48 +12,43 @@
 char *get_exec_path(char *program)
 {
 	char *path = _getenv("PATH");
-	char *copy_path = malloc(_strlen(path) + 1);
-	char *token;
-	char *str = NULL;
+	char *copy_path = strdup(path);
+	char *token, *str = NULL;
 	int str_len = 0;
-	int path_len = 0;
-	int file_len = _strlen(program);
+	int path_len = 0, file_len = _strlen(program);
 
-	_strcpy(copy_path, path);
 	token = strtok(copy_path, ":");
 	if (token != NULL)
 	{
 		path_len = _strlen(token);
 		str_len = path_len + file_len;
-		str = malloc(str_len * sizeof(char) + 1);
-		if (str == NULL)
-			exit(EXIT_FAILURE);
+		str = _malloc(str_len * sizeof(char) + 1);
 	}
 	while (token != NULL)
 	{
 		if ((path_len + file_len) >= str_len)
 		{
 			str_len = path_len + file_len;
-			str = realloc(str, (str_len * sizeof(char)) + 1);
+			str = _realloc(str, (str_len * sizeof(char)) + 1);
 		}
 		_strcpy(str, token);
 		str_len = _strlen(str);
 		if (str[(str_len - 1)] != '/')
 		{
 			if ((path_len + file_len + 1) >= str_len)
-				str = realloc(str, (str_len * sizeof(char)) + 2);
+				str = _realloc(str, (str_len * sizeof(char)) + 2);
 			_strcat(str, "/");
 		}
 		_strcat(str, program);
 		if (access(str, F_OK) == 0)
+		{
+			free_multiple(1, copy_path);
 			return (str);
+		}
 		token = strtok(NULL, ":");
 		if (token != NULL)
 			path_len = _strlen(token);
 	}
-	if (str != NULL)
-		free(str);
-	if (copy_path != NULL)
-		free(copy_path);
+	free_multiple(2, str, copy_path);
 	return (NULL);
 }
