@@ -3,6 +3,19 @@
 #include <stdio.h>
 #include <sys/wait.h>
 
+char **get_lang_env(int *envp_size)
+{
+	char **envp = NULL;
+	char *lang = _getenv("LANG");
+	
+
+	envp = _malloc((*envp_size) * sizeof(char *));
+	envp[0] = _malloc(5 + _strlen(lang) + 1);
+	_strcat(envp[0], "LANG=");
+	_strcat(envp[0], lang);
+	return envp;
+}
+
 /**
  * _exec - execute a program
  * @command: command to execute
@@ -12,9 +25,11 @@
 void _exec(char *command, char *shell_name)
 {
 	char *full_path = NULL;
-	char **argv = NULL, *envp[2] = {"LANG=en_NG", NULL};
+	char **argv = NULL, **envp = NULL;
 	pid_t id;
+	int envp_size = 3;
 
+	envp = get_lang_env(&envp_size);
 	argv = get_argv(command);
 	if (argv[0] == NULL)
 		exit(EXIT_SUCCESS);
@@ -26,6 +41,7 @@ void _exec(char *command, char *shell_name)
 	{
 		perror(shell_name);
 		free_array((void **)argv, sizeof(argv) / sizeof(char));
+		free_array((void **)envp, envp_size);
 	}
 	else
 	{
@@ -42,6 +58,7 @@ void _exec(char *command, char *shell_name)
 		{
 			wait(NULL);
 		}
+		free_array((void **)envp, envp_size);
 		free_array((void **)argv, sizeof(argv) / sizeof(char));
 		free_multiple(1, full_path);
 	}
