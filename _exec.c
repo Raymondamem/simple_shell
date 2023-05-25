@@ -16,13 +16,14 @@ void _exec(char *command, char *shell_name)
 	pid_t id;
 
 	argv = get_argv(command);
-	full_path = get_exec_path(argv[0]);
+	if (argv[0][0] != '/' && argv[0][0] != '.')
+		full_path = get_exec_path(argv[0]);
+	else
+		full_path = _strdup(argv[0]);
 	if (full_path == NULL)
 	{
-		perror("File not found");
+		perror(shell_name);
 		free_array((void **)argv, sizeof(argv) / sizeof(char));
-		free_multiple(1, full_path);
-		prompt();
 	}
 	else
 	{

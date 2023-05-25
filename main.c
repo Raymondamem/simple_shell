@@ -33,7 +33,7 @@ int main(__attribute__((unused)) int ac, char **av)
 			if (line[read - 1] == '\n')
 				line[read - 1] = '\0';
 
-			run_cmd(line, av[0]);
+			run_cmd(line,  av[0]);
 			prompt();
 		}
 	}

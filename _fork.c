@@ -13,7 +13,7 @@ pid_t _fork(void)
 
 	if (pid == -1)
 	{
-		perror("Error: cannot fork");
+		perror("Fork");
 		exit(EXIT_FAILURE);
 	}
 

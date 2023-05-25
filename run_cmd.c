@@ -16,4 +16,3 @@ void run_cmd(char *command, char *shell_name)
 
 	exec_command(command, shell_name);
 }
-

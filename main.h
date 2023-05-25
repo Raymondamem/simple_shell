@@ -5,10 +5,12 @@
 #include <sys/types.h>
 
 extern char **environ;
+
 #define PROMPT_MSG "#cisfun$ "
 #define PROMPT_LEN 9
 
 #define UNUSED(x) (void)(x)
+#define PATH_MAX 1024
 
 /**
  * struct cmd - command structure
