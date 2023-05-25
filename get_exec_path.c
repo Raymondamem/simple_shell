@@ -37,7 +37,5 @@ char *get_exec_path(char *program)
 		free_multiple(1, copy_path);
 		return (_strdup(program));
 	}
-	if (!isatty(STDIN_FILENO))
-		exit(2);
 	return (NULL);
 }
