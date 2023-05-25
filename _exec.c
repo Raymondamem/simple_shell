@@ -3,17 +3,21 @@
 #include <stdio.h>
 #include <sys/wait.h>
 
+/**
+ * get_lang_env - get the language environment
+ * @envp_size: size of the environment
+ * Return: pointer to the language environment
+*/
 char **get_lang_env(int *envp_size)
 {
 	char **envp = NULL;
 	char *lang = _getenv("LANG");
-	
 
 	envp = _malloc((*envp_size) * sizeof(char *));
 	envp[0] = _malloc(5 + _strlen(lang) + 1);
 	_strcat(envp[0], "LANG=");
 	_strcat(envp[0], lang);
-	return envp;
+	return (envp);
 }
 
 /**
