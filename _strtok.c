@@ -3,28 +3,36 @@
 #include <string.h>
 #include <stdbool.h>
 
+/**
+ * _strtok - tokenizes a sentence
+ * @str: sentence to tokenize
+ * @delim: char to use for it
+ * Return: returns string of each token
+ */
 char *_strtok(char *str, const char *delim)
 {
-    static char *next_token;
-    if (str != NULL)
-        next_token = str;
+	static char *next_token;
+	char *current_token;
 
-    if (next_token == NULL)
-        return NULL;
+	if (str != NULL)
+		next_token = str;
 
-    char *current_token = next_token;
-    while (*next_token != '\0')
-    {
-        if (strchr(delim, *next_token) != NULL)
-        {
-            *next_token = '\0';
-            next_token++;
-            return current_token;
-        }
-        next_token++;
-    }
+	if (next_token == NULL)
+		return (NULL);
 
-    next_token = NULL;
-    return current_token;
+	current_token = next_token;
+	while (*next_token != '\0')
+	{
+		if (strchr(delim, *next_token) != NULL)
+		{
+			*next_token = '\0';
+			next_token++;
+			return (current_token);
+		}
+		next_token++;
+	}
+
+	next_token = NULL;
+	return (current_token);
 }
 
