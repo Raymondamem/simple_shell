@@ -6,8 +6,8 @@
 
 extern char **environ;
 
-#define PROMPT_MSG "#cisfun$ "
-#define PROMPT_LEN 9
+#define PROMPT_MSG "($) "
+#define PROMPT_LEN 4
 
 #define UNUSED(x) (void)(x)
 #define PATH_MAX 1024

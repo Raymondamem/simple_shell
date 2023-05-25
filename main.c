@@ -34,7 +34,6 @@ int main(__attribute__((unused)) int ac, char **av)
 				line[read - 1] = '\0';
 
 			run_cmd(line,  av[0]);
-			prompt();
 		}
 	}
 	free_multiple(1, line);
