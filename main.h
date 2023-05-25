@@ -27,6 +27,7 @@ void prompt(void);
 void (*select_cmd(char *cmd))(char *c, char *s);
 char *_getenv(char *variable);
 int _strcmp(char *s1, char *s2);
+int _strncmp(const char *s1, const char *s2, size_t n);
 int _strlen(const char *s);
 char *_strcat(char *dest, char *src);
 char *_strcpy(char *dest, const char *src);
