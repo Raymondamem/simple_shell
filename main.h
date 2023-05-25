@@ -14,6 +14,7 @@ int _strcmp(char *s1, char *s2);
 int _strlen(const char *s);
 char *_strcat(char *dest, char *src);
 char *_strcpy(char *dest, const char *src);
+char *_strtok(char *str, const char *delim);
 pid_t _fork(void);
 char *get_exec_path(char *program);
 char **get_argv(char *line);
