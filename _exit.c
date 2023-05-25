@@ -9,6 +9,7 @@
 */
 void __exit(char *command, char *shell_name)
 {
+	free_multiple(1, command);
 	UNUSED(command);
 	UNUSED(shell_name);
 	exit(EXIT_SUCCESS);

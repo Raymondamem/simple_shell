@@ -33,7 +33,7 @@ void _exec(char *command, char *shell_name)
 			if (execve(full_path, argv, NULL) == -1)
 			{
 				perror(shell_name);
-				_exit(EXIT_FAILURE);
+				exit(EXIT_FAILURE);
 			}
 		}
 		else
