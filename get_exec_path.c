@@ -32,9 +32,9 @@ char *get_exec_path(char *program)
 		}
 		token = strtok(NULL, ":");
 	}
-	free_multiple(1, copy_path);
 	if (access(copy_path, F_OK) == 0)
 	{
+		free_multiple(1, copy_path);
 		return (_strdup(program));
 	}
 	return (NULL);

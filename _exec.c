@@ -12,11 +12,13 @@
 void _exec(char *command, char *shell_name)
 {
 	char *full_path = NULL;
-	char **argv = NULL;
+	char **argv = NULL, *envp[2] = {"LANG=en_NG", NULL};
 	pid_t id;
 
 	argv = get_argv(command);
-	if (argv[0][0] != '/' && argv[0][0] != '.')
+	if (argv[0] == NULL)
+		exit(EXIT_SUCCESS);
+	else if (argv[0][0] != '/' && argv[0][0] != '.')
 		full_path = get_exec_path(argv[0]);
 	else
 		full_path = _strdup(argv[0]);
@@ -30,7 +32,7 @@ void _exec(char *command, char *shell_name)
 		id = _fork();
 		if (id == 0)
 		{
-			if (execve(full_path, argv, NULL) == -1)
+			if (execve(full_path, argv, envp) == -1)
 			{
 				perror(shell_name);
 				exit(EXIT_FAILURE);
