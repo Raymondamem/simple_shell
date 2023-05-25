@@ -10,14 +10,42 @@
 */
 char **get_lang_env(int *envp_size)
 {
-	char **envp = NULL;
+	char **env_vars = _malloc((*envp_size) * sizeof(char *));
+	char *lc_collate = _getenv("LC_COLLATE");
+	char *lc_all = _getenv("LC_ALL");
 	char *lang = _getenv("LANG");
+	int i = 0;
 
-	envp = _malloc((*envp_size) * sizeof(char *));
-	envp[0] = _malloc(5 + _strlen(lang) + 1);
-	_strcpy(envp[0], "LANG=");
-	_strcat(envp[0], lang);
-	return (envp);
+	if (lc_collate != NULL)
+	{
+		env_vars[i] = _malloc(_strlen("LC_COLLATE=") + _strlen(lc_collate) + 1);
+		_strcpy(env_vars[i], "LC_COLLATE=");
+		_strcat(env_vars[i], lc_collate);
+		i++;
+	}
+	else
+		env_vars[i] = NULL;
+	if (lc_all != NULL)
+	{
+		env_vars[i] = _malloc(_strlen("LC_ALL=") + _strlen(lc_all) + 1);
+		_strcpy(env_vars[i], "LC_ALL=");
+		_strcat(env_vars[i], lc_all);
+		i++;
+	}
+	else
+		env_vars[i] = NULL;
+	if (lang != NULL)
+	{
+		env_vars[i] = _malloc(_strlen("LANG=") + _strlen(lang) + 1);
+		_strcpy(env_vars[i], "LANG=");
+		_strcat(env_vars[i], lang);
+		i++;
+	}
+	else
+		env_vars[i] = NULL;
+	env_vars[i] = NULL;
+
+	return (env_vars);
 }
 
 /**
@@ -31,7 +59,7 @@ void _exec(char *command, char *shell_name)
 	char *full_path = NULL;
 	char **argv = NULL, **envp = NULL;
 	pid_t id;
-	int envp_size = 3;
+	int envp_size = 4;
 
 	envp = get_lang_env(&envp_size);
 	argv = get_argv(command);
