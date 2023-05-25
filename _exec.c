@@ -15,7 +15,7 @@ char **get_lang_env(int *envp_size)
 
 	envp = _malloc((*envp_size) * sizeof(char *));
 	envp[0] = _malloc(5 + _strlen(lang) + 1);
-	_strcat(envp[0], "LANG=");
+	_strcpy(envp[0], "LANG=");
 	_strcat(envp[0], lang);
 	return (envp);
 }
