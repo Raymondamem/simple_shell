@@ -5,10 +5,26 @@
 #include <sys/types.h>
 
 extern char **environ;
-#define PROMPT_MSG "#cisfun$ "
-#define PROMPT_LEN 9
+
+#define PROMPT_MSG "($) "
+#define PROMPT_LEN 4
+
+#define UNUSED(x) (void)(x)
+#define PATH_MAX 1024
+
+/**
+ * struct cmd - command structure
+ * @command: format specifier
+ * @f: command function
+*/
+typedef struct cmd
+{
+	char *command;
+	void (*f)(char *c, char *s);
+} command_t;
 
 void prompt(void);
+void (*select_cmd(char *cmd))(char *c, char *s);
 char *_getenv(char *variable);
 int _strcmp(char *s1, char *s2);
 int _strlen(const char *s);
@@ -24,5 +40,8 @@ void *_realloc(void *ptr, size_t size);
 void *_malloc(size_t size);
 void run_cmd(char *command, char *shell_name);
 char *_strdup(const char *s);
+void _exec(char *command, char *shell_name);
+void __exit(char *command, char *shell_name);
+void _env(char *command, char *shell_name);
 
 #endif /* __MAIN_H__ */

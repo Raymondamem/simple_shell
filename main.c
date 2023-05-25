@@ -1,5 +1,8 @@
 #include "main.h"
 #include <stdio.h>
+#include <signal.h>
+
+
 
 /**
  * main - Entry point for shell
@@ -27,14 +30,12 @@ int main(__attribute__((unused)) int ac, char **av)
 	}
 	else
 	{
-		read = getline(&line, &len, stdin);
-		if (read != -1)
+		while ((read = getline(&line, &len, stdin)) != -1)
 		{
 			if (line[read - 1] == '\n')
 				line[read - 1] = '\0';
 
-			run_cmd(line, av[0]);
-			prompt();
+			run_cmd(line,  av[0]);
 		}
 	}
 	free_multiple(1, line);

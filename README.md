@@ -5,3 +5,8 @@ simple shell with C by [Raymond](https://github.com/Raymondamem) and [Yohanna](h
 ```bash
 gcc -Wall -Werror -Wextra -pedantic -std=gnu89 *.c -o hsh
 ```
+
+## Check for memory leaks
+```bash
+valgrind --leak-check=yes ./hsh
+```

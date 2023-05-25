@@ -13,42 +13,29 @@ char *get_exec_path(char *program)
 {
 	char *path = _getenv("PATH");
 	char *copy_path = _strdup(path);
-	char *token, *str = NULL;
-	int str_len = 0;
-	int path_len = 0, file_len = _strlen(program);
+	char *token;
+	char fullpath[PATH_MAX];
 
 	token = strtok(copy_path, ":");
-	if (token != NULL)
-	{
-		path_len = _strlen(token);
-		str_len = path_len + file_len;
-		str = _malloc(str_len * sizeof(char) + 1);
-	}
 	while (token != NULL)
 	{
-		if ((path_len + file_len) >= str_len)
+		_strcpy(fullpath, token);
+		if (fullpath[_strlen(fullpath) - 1] != '/')
 		{
-			str_len = path_len + file_len;
-			str = _realloc(str, (str_len * sizeof(char)) + 1);
+			strcat(fullpath, "/");
 		}
-		_strcpy(str, token);
-		str_len = _strlen(str);
-		if (str[(str_len - 1)] != '/')
-		{
-			if ((path_len + file_len + 1) >= str_len)
-				str = _realloc(str, (str_len * sizeof(char)) + 2);
-			_strcat(str, "/");
-		}
-		_strcat(str, program);
-		if (access(str, F_OK) == 0)
+		strcat(fullpath, program);
+		if (access(fullpath, F_OK) == 0)
 		{
 			free_multiple(1, copy_path);
-			return (str);
+			return (_strdup(fullpath));
 		}
 		token = strtok(NULL, ":");
-		if (token != NULL)
-			path_len = _strlen(token);
 	}
-	free_multiple(2, str, copy_path);
+	if (access(copy_path, F_OK) == 0)
+	{
+		free_multiple(1, copy_path);
+		return (_strdup(program));
+	}
 	return (NULL);
 }
