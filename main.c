@@ -43,9 +43,10 @@ int main(__attribute__((unused)) int ac, char **av)
 		shell_data.interactive = 0;
 		while ((read = getline(&shell_data.line, &len, stdin)) != -1)
 		{
+			if (shell_data.line[0] == '\n')
+				continue;
 			if (shell_data.line[read - 1] == '\n')
 				shell_data.line[read - 1] = '\0';
-
 			run_cmd(&shell_data);
 		}
 	}

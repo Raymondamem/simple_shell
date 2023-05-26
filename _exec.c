@@ -44,6 +44,24 @@ int invalid_argv(char **argv, info_t *shell_data)
 }
 
 /**
+ * hangle_path_null - checks if the path is invalid
+ * @full_path: path to check
+ * @argv: list of arguments
+ * @shell_data: the shell data
+ * Return: void
+*/
+void hangle_path_null(char *full_path, char **argv, info_t *shell_data)
+{
+	free_array((void **)argv, count_array_size(argv));
+	if (shell_data->interactive == 0)
+	{
+		perror(shell_data->shell_name);
+		free_multiple(2, full_path, shell_data->line);
+		exit(127);
+	}
+}
+
+/**
  * _exec - execute a program
  * @shell_data: shell data
  * Return: void
@@ -63,10 +81,7 @@ void _exec(info_t *shell_data)
 	else
 		full_path = _strdup(argv[0]);
 	if (full_path == NULL)
-	{
-		perror(shell_data->shell_name);
-		free_array((void **)argv, count_array_size(argv));
-	}
+		hangle_path_null(full_path, argv, shell_data);
 	else
 	{
 		id = _fork();
