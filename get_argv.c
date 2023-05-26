@@ -37,7 +37,7 @@ char **get_argv(char *line)
 
 	str_copy = _strdup(line);
 	argv = _malloc(arr_size * sizeof(char *));
-	token = strtok(str_copy, " ");
+	token = _strtok(str_copy, " ");
 	while (token != NULL)
 	{
 		if (argc >= arr_size)
@@ -50,7 +50,7 @@ char **get_argv(char *line)
 			exit(EXIT_FAILURE);
 		}
 		argc++;
-		token = strtok(NULL, " ");
+		token = _strtok(NULL, " ");
 	}
 	if (argc >= arr_size)
 		argv = (char **)realloc_array((void **)argv, &arr_size, &argc, str_copy);

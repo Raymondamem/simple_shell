@@ -32,8 +32,14 @@ void _exec(info_t *shell_data)
 	int wstatus;
 
 	argv = get_argv(shell_data->line);
-	if (argv[0] == NULL)
-		exit(EXIT_SUCCESS);
+	if (argv[0] == NULL || argv[0][0] == '\0')
+	{
+		free_array((void **)argv, count_array_size(argv));
+		if (shell_data->interactive == 0)
+			free_multiple(1, shell_data->line);
+		else
+			return;
+	}
 	else if (argv[0][0] != '/' && argv[0][0] != '.')
 		full_path = get_exec_path(argv[0]);
 	else
