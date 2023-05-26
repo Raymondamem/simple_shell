@@ -16,7 +16,7 @@ char *get_exec_path(char *program)
 	char *token;
 	char fullpath[PATH_MAX];
 
-	token = strtok(copy_path, ":");
+	token = _strtok(copy_path, ":");
 	while (token != NULL)
 	{
 		_strcpy(fullpath, token);
@@ -30,7 +30,7 @@ char *get_exec_path(char *program)
 			free_multiple(1, copy_path);
 			return (_strdup(fullpath));
 		}
-		token = strtok(NULL, ":");
+		token = _strtok(NULL, ":");
 	}
 	free_multiple(1, copy_path);
 	if (access(program, F_OK) == 0)

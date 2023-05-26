@@ -46,6 +46,7 @@ char *_strcat(char *dest, char *src);
 char *_strcpy(char *dest, const char *src);
 char *_strtok(char *str, const char *delim);
 size_t _strcspn(const char *str, const char *reject);
+size_t _strspn(const char *str, const char *accept);
 char *_strtok(char *str, const char *delim);
 pid_t _fork(void);
 char *get_exec_path(char *program);

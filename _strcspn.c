@@ -1,5 +1,4 @@
 #include "main.h"
-#include <string.h>
 
 /**
  * _strcspn - calculates length of initial segment
@@ -11,10 +10,11 @@
 size_t _strcspn(const char *str, const char *reject)
 {
 	size_t count = 0;
+	const char *r;
 
 	while (*str)
 	{
-		for (const char *r = reject; *r; r++)
+		for (r = reject; *r; r++)
 		{
 			if (*str == *r)
 			{
