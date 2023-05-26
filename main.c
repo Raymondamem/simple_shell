@@ -26,6 +26,11 @@ int main(__attribute__((unused)) int ac, char **av)
 		prompt();
 		while ((read = getline(&shell_data.line, &len, stdin)) != -1)
 		{
+			if (shell_data.line[0] == '\n')
+			{
+				prompt();
+				continue;
+			}
 			if (shell_data.line[read - 1] == '\n')
 				shell_data.line[read - 1] = '\0';
 
