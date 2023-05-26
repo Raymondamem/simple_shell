@@ -20,6 +20,30 @@ int count_array_size(char **arr)
 }
 
 /**
+ * invalid_argv - checks if an argument is invalid
+ * @argv: the arguments to check
+ * @shell_data: the shell data
+ * Return: -1 if the argument is invalid
+ * and 0 otherwise
+*/
+int invalid_argv(char **argv, info_t *shell_data)
+{
+	if (argv[0] == NULL || argv[0][0] == '\0')
+	{
+		free_array((void **)argv, count_array_size(argv));
+		if (shell_data->interactive == 0)
+		{
+			free_multiple(1, shell_data->line);
+			exit(EXIT_SUCCESS);
+		}
+		else
+			return (-1);
+	}
+	else
+		return (0);
+}
+
+/**
  * _exec - execute a program
  * @shell_data: shell data
  * Return: void
@@ -32,14 +56,8 @@ void _exec(info_t *shell_data)
 	int wstatus;
 
 	argv = get_argv(shell_data->line);
-	if (argv[0] == NULL || argv[0][0] == '\0')
-	{
-		free_array((void **)argv, count_array_size(argv));
-		if (shell_data->interactive == 0)
-			free_multiple(1, shell_data->line);
-		else
-			return;
-	}
+	if (invalid_argv(argv, shell_data) == -1)
+		return;
 	else if (argv[0][0] != '/' && argv[0][0] != '.')
 		full_path = get_exec_path(argv[0]);
 	else
