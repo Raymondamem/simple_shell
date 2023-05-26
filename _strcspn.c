@@ -2,7 +2,8 @@
 #include <string.h>
 
 /**
- * _strcspn - calculates length of initial segment of string that consists of characters not in set.
+ * _strcspn - calculates length of initial segment
+ * of string that consists of characters not in set.
  * @str: the string
  * @reject: what not to count
  * Return: returns number of reject
@@ -17,7 +18,7 @@ size_t _strcspn(const char *str, const char *reject)
 		{
 			if (*str == *r)
 			{
-				return count;
+				return (count);
 			}
 		}
 		count++;
