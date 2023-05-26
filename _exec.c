@@ -88,7 +88,7 @@ void _exec(info_t *shell_data)
 		wait(&wstatus);
 		free_array((void **)envp, envp_size);
 		free_array((void **)argv, sizeof(argv) / sizeof(char));
-		free_multiple(1, full_path);
+		free_multiple(2, full_path, shell_data->line);
 		if (shell_data->interactive == 0)
 		{
 			if (WIFEXITED(wstatus) && WEXITSTATUS(wstatus) != 0)
