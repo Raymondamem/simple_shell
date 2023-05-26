@@ -3,6 +3,11 @@
 #include <stdio.h>
 #include <sys/wait.h>
 
+/**
+ * count_array_size - count the size of an array
+ * @arr: the array to count
+ * Return: The size of the array
+*/
 int count_array_size(char **arr)
 {
 	int i = 0;
