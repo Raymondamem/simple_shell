@@ -24,7 +24,7 @@ char *get_exec_path(char *program)
 		{
 			strcat(fullpath, "/");
 		}
-		strcat(fullpath, program);
+		_strcat(fullpath, program);
 		if (access(fullpath, F_OK) == 0)
 		{
 			free_multiple(1, copy_path);

@@ -3,6 +3,7 @@
 
 #include <unistd.h>
 #include <sys/types.h>
+#include <limits.h>
 
 extern char **environ;
 
@@ -10,7 +11,6 @@ extern char **environ;
 #define PROMPT_LEN 2
 
 #define UNUSED(x) (void)(x)
-#define PATH_MAX 1024
 
 /**
  * struct info - more information
@@ -23,6 +23,7 @@ typedef struct info
 	char *line;
 	int interactive;
 	char shell_name[5];
+	int exit_code;
 } info_t;
 
 /**
@@ -60,5 +61,7 @@ void run_cmd(info_t *);
 void _exec(info_t *);
 void __exit(info_t *);
 void _env(info_t *);
+int _atoi(char *s);
+int is_valid_number(const char *str);
 
 #endif /* __MAIN_H__ */

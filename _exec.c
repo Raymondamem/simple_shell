@@ -94,6 +94,7 @@ void _exec(info_t *shell_data)
 			}
 		}
 		wait(&wstatus);
+		shell_data->exit_code = WEXITSTATUS(wstatus);
 		free_array((void **)argv, count_array_size(argv));
 		free_multiple(1, full_path);
 		if (shell_data->interactive == 0)
