@@ -4,16 +4,14 @@
 
 /**
  * _env - print all environment variables
- * @command: command to execute
- * @shell_name: name of the shell
+ * @shell_data: shell data
  * Return: void
 */
-void _env(char *command, char *shell_name)
+void _env(info_t *shell_data)
 {
 	int i = 0;
 
-	UNUSED(command);
-	UNUSED(shell_name);
+	UNUSED(shell_data);
 
 	while (environ[i] != NULL)
 	{

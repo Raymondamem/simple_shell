@@ -5,14 +5,13 @@
 
 /**
  * run_cmd - runs command
- * @command: command to run
- * @shell_name: shell name
+ * @shell_data: shell data
  *
  * Return: void
  */
-void run_cmd(char *command, char *shell_name)
+void run_cmd(info_t *shell_data)
 {
-	void (*exec_command)(char *, char *) = select_cmd(command);
+	void (*exec_command)(info_t *) = select_cmd(shell_data->line);
 
-	exec_command(command, shell_name);
+	exec_command(shell_data);
 }

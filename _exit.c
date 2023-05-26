@@ -3,14 +3,11 @@
 
 /**
  * __exit - exit from shell
- * @command: command to execute
- * @shell_name: name of the shell
+ * @shell_data: shell data
  * Return: void
 */
-void __exit(char *command, char *shell_name)
+void __exit(info_t *shell_data)
 {
-	free_multiple(1, command);
-	UNUSED(command);
-	UNUSED(shell_name);
+	free_multiple(1, shell_data->line);
 	exit(EXIT_SUCCESS);
 }

@@ -5,7 +5,7 @@
  * @cmd: command to check
  * Return: pointer to function
 */
-void (*select_cmd(char *cmd))(char *, char *)
+void (*select_cmd(char *cmd))(info_t *)
 {
 	int i = 0;
 	command_t _commands[] = {

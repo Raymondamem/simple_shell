@@ -50,19 +50,18 @@ char **get_lang_env(int *envp_size)
 
 /**
  * _exec - execute a program
- * @command: command to execute
- * @shell_name: name of the shell
+ * @shell_data: shell data
  * Return: void
 */
-void _exec(char *command, char *shell_name)
+void _exec(info_t *shell_data)
 {
 	char *full_path = NULL;
 	char **argv = NULL, **envp = NULL;
 	pid_t id;
-	int envp_size = 4;
+	int envp_size = 4, wstatus;
 
 	envp = get_lang_env(&envp_size);
-	argv = get_argv(command);
+	argv = get_argv(shell_data->line);
 	if (argv[0] == NULL)
 		exit(EXIT_SUCCESS);
 	else if (argv[0][0] != '/' && argv[0][0] != '.')
@@ -71,7 +70,7 @@ void _exec(char *command, char *shell_name)
 		full_path = _strdup(argv[0]);
 	if (full_path == NULL)
 	{
-		perror(shell_name);
+		perror(shell_data->shell_name);
 		free_array((void **)argv, sizeof(argv) / sizeof(char));
 		free_array((void **)envp, envp_size);
 	}
@@ -82,16 +81,18 @@ void _exec(char *command, char *shell_name)
 		{
 			if (execve(full_path, argv, envp) == -1)
 			{
-				perror(shell_name);
+				perror(shell_data->shell_name);
 				exit(EXIT_FAILURE);
 			}
 		}
-		else
-		{
-			wait(NULL);
-		}
+		wait(&wstatus);
 		free_array((void **)envp, envp_size);
 		free_array((void **)argv, sizeof(argv) / sizeof(char));
 		free_multiple(1, full_path);
+		if (shell_data->interactive == 0)
+		{
+			if (WIFEXITED(wstatus) && WEXITSTATUS(wstatus) != 0)
+				exit(2);
+		}
 	}
 }
