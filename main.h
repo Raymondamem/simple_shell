@@ -60,5 +60,6 @@ void run_cmd(info_t *);
 void _exec(info_t *);
 void __exit(info_t *);
 void _env(info_t *);
+ssize_t _getline(char **lineptr, size_t *n, FILE *stream);
 
 #endif /* __MAIN_H__ */
