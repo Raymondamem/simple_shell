@@ -18,8 +18,11 @@ void free_multiple(int count, ...)
 	for (i = 0; i < count; i++)
 	{
 		ptr = va_arg(args, void *);
-		free(ptr);
-		ptr = NULL;
+		if (ptr != NULL)
+		{
+			free(ptr);
+			ptr = NULL;
+		}
 	}
 	va_end(args);
 }

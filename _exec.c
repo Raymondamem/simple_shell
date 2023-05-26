@@ -48,6 +48,17 @@ char **get_lang_env(int *envp_size)
 	return (env_vars);
 }
 
+int count_array_size(char **arr)
+{
+	int i = 0;
+
+	while (arr[i] != NULL)
+	{
+		i++;
+	}
+	return (i);
+}
+
 /**
  * _exec - execute a program
  * @shell_data: shell data
@@ -71,7 +82,7 @@ void _exec(info_t *shell_data)
 	if (full_path == NULL)
 	{
 		perror(shell_data->shell_name);
-		free_array((void **)argv, sizeof(argv) / sizeof(char));
+		free_array((void **)argv, count_array_size(argv));
 		free_array((void **)envp, envp_size);
 	}
 	else
@@ -87,12 +98,15 @@ void _exec(info_t *shell_data)
 		}
 		wait(&wstatus);
 		free_array((void **)envp, envp_size);
-		free_array((void **)argv, sizeof(argv) / sizeof(char));
-		free_multiple(2, full_path, shell_data->line);
+		free_array((void **)argv, count_array_size(argv));
+		free_multiple(1, full_path);
 		if (shell_data->interactive == 0)
 		{
 			if (WIFEXITED(wstatus) && WEXITSTATUS(wstatus) != 0)
+			{
+				free_multiple(1, shell_data->line);
 				exit(2);
+			}
 		}
 	}
 }
