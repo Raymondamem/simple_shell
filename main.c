@@ -22,7 +22,7 @@ int main(__attribute__((unused)) int ac, char **av)
 	if (isatty(STDIN_FILENO))
 	{
 		prompt();
-		while ((read = getline(&shell_data.line, &len, stdin)) != -1)
+		while ((read = _getline(&shell_data.line, &len, stdin)) != -1)
 		{
 			if (shell_data.line[0] == '\n')
 			{
@@ -39,7 +39,7 @@ int main(__attribute__((unused)) int ac, char **av)
 	else
 	{
 		shell_data.interactive = 0;
-		while ((read = getline(&shell_data.line, &len, stdin)) != -1)
+		while ((read = _getline(&shell_data.line, &len, stdin)) != -1)
 		{
 			if (shell_data.line[0] == '\n')
 				continue;

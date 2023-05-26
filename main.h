@@ -4,6 +4,7 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include <limits.h>
+#include <stdio.h>
 
 extern char **environ;
 
@@ -63,5 +64,6 @@ void __exit(info_t *);
 void _env(info_t *);
 int _atoi(char *s);
 int is_valid_number(const char *str);
+ssize_t _getline(char **lineptr, size_t *n, FILE *stream);
 
 #endif /* __MAIN_H__ */
