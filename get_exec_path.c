@@ -12,10 +12,13 @@
 char *get_exec_path(char *program)
 {
 	char *path = _getenv("PATH");
-	char *copy_path = _strdup(path);
+	char *copy_path = NULL;
 	char *token;
 	char fullpath[PATH_MAX];
 
+	if (path == NULL)
+		return (NULL);
+	copy_path = _strdup(path);
 	token = _strtok(copy_path, ":");
 	while (token != NULL)
 	{
