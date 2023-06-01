@@ -13,11 +13,16 @@ extern char **environ;
 
 #define UNUSED(x) (void)(x)
 
+#ifndef PATH_MAX /* PATH_MAX is defined in limits.h */
+#define PATH_MAX 1024
+#endif /* PATH_MAX */
+
 /**
- * struct info - more information
+ * struct info - Stores shell data
  * @line: commands typed
  * @interactive: shell mode
  * @shell_name: name of the shell
+ * @exit_code: exit code of the shell
 */
 typedef struct info
 {
@@ -38,7 +43,7 @@ typedef struct cmd
 	void (*f)(info_t *);
 } command_t;
 
-void prompt(void);
+void prompt(info_t *shell_data);
 void (*select_cmd(char *cmd))(info_t *);
 char *_getenv(char *variable);
 int _strcmp(char *s1, char *s2);

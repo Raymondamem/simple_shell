@@ -4,6 +4,18 @@
 #include <stdio.h>
 
 /**
+ * print_exit_error - prints error message for exit command
+ * @shell_data: shell data information
+ * @code: program exit code
+ * Return: void
+*/
+void print_exit_error(info_t *shell_data, char *code)
+{
+	dprintf(STDERR_FILENO, "%s: 1: exit: Illegal number: %s\n",
+	shell_data->shell_name, code);
+}
+
+/**
  * __exit - exit from shell
  * @shell_data: shell data
  * Return: void
@@ -22,9 +34,8 @@ void __exit(info_t *shell_data)
 		exit_code = _atoi(token);
 		if (is_valid_number(token) == 0)
 		{
+			print_exit_error(shell_data, token);
 			free_multiple(1, string_copy);
-			errno = EINVAL;
-			perror(shell_data->shell_name);
 			if (shell_data->interactive == 1)
 				return;
 			free_multiple(1, shell_data->line);
@@ -32,8 +43,9 @@ void __exit(info_t *shell_data)
 		}
 		if (exit_code < 0)
 		{
-			errno = EINVAL;
-			perror(shell_data->shell_name);
+			print_exit_error(shell_data, token);
+			free_multiple(2, shell_data->line, string_copy);
+			exit(2);
 		}
 	}
 	free_multiple(2, shell_data->line, string_copy);

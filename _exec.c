@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <sys/wait.h>
+#include <errno.h>
 
 /**
  * count_array_size - count the size of an array
@@ -52,10 +53,11 @@ int invalid_argv(char **argv, info_t *shell_data)
 */
 void hangle_path_null(char *full_path, char **argv, info_t *shell_data)
 {
+	dprintf(STDERR_FILENO, "%s: 1: %s: not found\n",
+	shell_data->shell_name, argv[0]);
 	free_array((void **)argv, count_array_size(argv));
 	if (shell_data->interactive == 0)
 	{
-		perror(shell_data->shell_name);
 		free_multiple(2, full_path, shell_data->line);
 		exit(127);
 	}

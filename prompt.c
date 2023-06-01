@@ -3,8 +3,8 @@
 /**
  * prompt - Prints prompt message
 */
-void prompt(void)
+void prompt(info_t *shell_data)
 {
-	write(STDOUT_FILENO, PROMPT_MSG, PROMPT_LEN);
+	if (shell_data->interactive == 1)
+		write(STDOUT_FILENO, PROMPT_MSG, PROMPT_LEN);
 }
-
