@@ -2,6 +2,8 @@
 
 /**
  * prompt - Prints prompt message
+ * @shell_data: shell data information
+ * Return: void
 */
 void prompt(info_t *shell_data)
 {
